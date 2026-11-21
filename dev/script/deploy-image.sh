@@ -25,8 +25,9 @@ IMAGE=$NAMESPACE:$TAG
 
 lein uberjar
 docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3
-docker buildx create --name multi
-docker buildx use multi
+docker buildx inspect multi >/dev/null 2>&1 \
+  && docker buildx use multi \
+  || docker buildx create --name multi --use
 docker buildx inspect --bootstrap
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 -t $IMAGE .
 
