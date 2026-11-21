@@ -31,7 +31,10 @@ docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $IMAGE .
 
 if [ $TRAVIS_SECURE_ENV_VARS == "true" ] 
 then
-	docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  if [ -n "$DOCKER_USERNAME" -a -n "$DOCKER_PASSWORD" ]
+  then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  fi
     docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $IMAGE --push .
 else
 	echo "images can be pushed only from base repo"
