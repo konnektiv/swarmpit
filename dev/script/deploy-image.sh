@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -e
-ORG=swarmpit
-REPO=swarmpit
-NAMESPACE=$ORG/$REPO
+NAMESPACE=${ORG:-swarmpit}/${REPO:-swarmpit}
 TAG=${TRAVIS_BRANCH/\//-}
 
 if [ $DOCKER != "stable" ]
