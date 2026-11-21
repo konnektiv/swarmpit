@@ -29,12 +29,12 @@ docker buildx inspect multi >/dev/null 2>&1 \
   && docker buildx use multi \
   || docker buildx create --name multi --use
 docker buildx inspect --bootstrap
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 -t $IMAGE .
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $IMAGE .
 
 if [ $TRAVIS_SECURE_ENV_VARS == "true" ] 
 then
 	docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 -t $IMAGE --push .
+    docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $IMAGE --push .
 else
 	echo "images can be pushed only from base repo"
 fi
